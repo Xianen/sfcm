@@ -31,13 +31,12 @@ truelabels=c(rep(1,n/3), rep(2,n/3), rep(3,n/3));
 ###parameter tuning###
 #this is not a necessary step, remove the comment below if you want to tune parameters, it will take a little bit long time;
 #start of tuning
-source("CMeansSparseCluster.permute.R");
-TUNE<- CMeansSparseCluster.permute(x,K=K,nvals=50); 
-print(TUNE$bestw);
-pdf("Rplot_gap_stat.pdf");
-plot(TUNE$wbounds, type="o", TUNE$gaps, xlab="w1bound",ylab="gap statistics", main="gap statistics");
-plot(sfcm.out$ws, main="feature weights", xlab="feature index", ylab="weight value");
-dev.off();
+#source("CMeansSparseCluster.permute.R");
+#TUNE<- CMeansSparseCluster.permute(x,K=K,nvals=50); 
+#print(TUNE$bestw);
+#pdf("Rplot_gap_stat.pdf");
+#plot(TUNE$wbounds, type="o", TUNE$gaps, xlab="w1bound",ylab="gap statistics", main="gap statistics");
+#dev.off();
 #end of tuning
 
 
@@ -70,4 +69,7 @@ layout(matrix(1:3, 1,3));
 plot(x1,x2, main="truelabels", sub="(a)",pch=truelabels,col=truelabels);
 plot(x1,x2, main="fcm",sub="(b)", pch=fcm_labels, col=fcm_labels);
 plot(x1,x2, main="sfcm", sub="(c)", pch=sfcm_labels, col=sfcm_labels);
+
+layout(1);
+plot(sfcm.out$ws, main="feature weights", xlab="feature index", ylab="weight value");
 dev.off();
