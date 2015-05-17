@@ -26,19 +26,18 @@ UpdateUs <- function(x, K, ws, U){
   	z <- sweep(x, 2, sqrt(ws[ws!=0]), "*")
   	nrowz <- nrow(z)
   	
-  	ms_sum<- apply(U,2,sum);  #ms: membership;Ïàµ±ÓÚnk
-  	mus <- NULL #ÐÂµÄÖÐÐÄ 
+  	ms_sum<- apply(U,2,sum);  #ms: membership
+  	mus <- NULL;
   	for(k in 1:K){
-  		#ÇóµÚkÀàµÄ¾ùÖµ
-  		ms_k<- diag(U[,k])^m   #¶Ô½Ç¾ØÕó£»Ã¿Ò»ÐÐÊôÓÚµÚkÀàµÄÁ¥Êô¶È
+  		ms_k<- diag(U[,k])^m;
   		center_k<- apply(ms_k %*% z, 2, sum)/ms_sum[k];
   		mus<-rbind(mus,center_k);
   	}  	
   	#print(mus);
 
-  	if(is.null(U)){ #Èç¹ûÔ­À´Ã»ÓÐU¼´Ô­À´Ã»ÓÐÖÐÐÄ
+  	if(is.null(U)){
   		cm<- cmeans(x, centers=K, m=m);		
-  	} else { # ÓÃ¾ÉÖÐÐÄ×÷ÎªÐÂµÄÆðÊ¼µã
+  	} else {
   		cm <- cmeans(z, centers=mus,m=m);    
   	}
   	return(cm$membership);  	 
@@ -54,7 +53,6 @@ UpdateWs <- function(x, U, l1bound){
   	#print(tss.perfeature);
   	
   	#print("-wcss.perfeature+tss.perfeature:\n");
-   # print(-wcss.perfeature+tss.perfeature);
   	#print(tss.perfeature);
   	
   	lam <- BinarySearch(-wcss.perfeature+tss.perfeature, l1bound)
